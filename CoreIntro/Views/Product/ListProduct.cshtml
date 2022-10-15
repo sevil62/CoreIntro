@@ -1,0 +1,42 @@
+﻿@model ProductVM
+@{
+    ViewData["Title"] = "ListProduct";
+}
+
+@if (Model.Products.Count==0)
+{
+    <div class="jumbotron">
+        Henüz hiç bir ürün eklenmemiştir..Ürün eklemek için <a asp-action="AddProduct"asp-controller="Product">tıklayınız</a>
+    </div>
+    
+}
+else
+{
+       <table class="table table-hover">
+           <tr>
+               <td>ProductName</td>
+               <td>UnitsInStock</td>
+               <td>CategoryName</td>
+           </tr>
+           @foreach (Product item in Model.Products)
+        {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.UnitsInStock</td>
+                    @if (item.Category!=null)
+                {
+                    <td>@item.Category.CategoryName</td>
+                }
+                else
+                {
+                        <td>Kategori belirtilmemiş</td>
+                }
+                <td > <a asp-action="UpdateProduct"asp-controller="Product"asp-route-id=@item.ID>Update</a>
+
+                </td>
+                <td><a asp-action="DeleteProduct"asp-controller="Product"asp-route-id=@item.ID>Delete</a></td>
+                </tr>
+        }
+       </table>
+}
+

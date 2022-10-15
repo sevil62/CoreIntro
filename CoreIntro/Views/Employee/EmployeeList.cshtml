@@ -1,0 +1,37 @@
+﻿@model EmployeeVM
+@{
+    ViewData["Title"] = "EmployeeList";
+}
+
+<h1>EmployeeList</h1>
+@if (Model.Employees.Count==0)
+{
+    <div class="jumbotron">
+        Henüz hiç bir personel eklenmemiş.Personel eklemek için <a asp-action="AddEmployee"asp-controller="Employee">tıklayınız</a>
+    </div>
+}
+else
+{
+      <table class="table table-hover">
+          <tr>
+              <th>FirstName</th>
+              <th>Role</th>
+              <th colspan="2">Transactions</th>
+          </tr>
+          @foreach (Employee item in Model.Employees)
+        {<tr>
+            <td>@item.FirstName</td>
+            <td>@item.Role</td>
+            <td><a class="btn btn-warning" asp-action="UpdateEmployee"asp-controller="Employee" asp-route-id=@item.ID>
+                Update
+            </a></td>
+                <td> <a class="btn btn-danger"asp-action="DeleteEmployee"asp-controller="Employee" asp-route-id=@item.ID></a> 
+                     Delete
+            </td>
+        </tr>
+
+            
+        }
+      </table>
+}
+
